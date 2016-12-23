@@ -68,6 +68,7 @@ do {
     } else {
         echo $album['message'] . PHP_EOL;
         echo "[ERROR] TOKEN 失效，请更新token！". PHP_EOL;
+        echo "> 请获取携带token的url并复制到token中！";
         exit();
     }
 

@@ -23,7 +23,8 @@ if(empty($sigin) || time() - $sigin['time'] > 3500) {
 
     if($sigin['code'] != 200) {
         echo $sigin['message'] . PHP_EOL;
-        echo "请重新输入URL" . PHP_EOL;
+        echo "[ERROR] TOKEN 失效，请更新token！". PHP_EOL;
+        echo "> 请获取携带token的url并复制到token中！" . PHP_EOL;
         exit();
     }
 

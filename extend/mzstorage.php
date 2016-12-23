@@ -21,6 +21,7 @@ class mzstorage
     {
         if(empty($url)) {
             echo "token url 不可为空！" . PHP_EOL;
+            echo "> 请获取携带token的url并复制到token中！".PHP_EOL;
             exit();
             //throw new Exception("token url not empty！");
         }
