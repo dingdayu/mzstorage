@@ -11,14 +11,14 @@
 // +----------------------------------------------------------------------
 // | Explain: 请在这里填写说明
 // +----------------------------------------------------------------------
-$referer = file_get_contents('referer');
+$token = file_get_contents('token');
 
 include_once "vendor/autoload.php";
 include_once "extend/mzstorage.php";
 include_once 'extend/SaveToDB.php';
 
 $mzstorage = new mzstorage();
-$mzstorage->setUrl($referer);
+$mzstorage->setUrl($token);
 
 
 $SaveToDB = new SaveToDB();

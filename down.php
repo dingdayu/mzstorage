@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
-$referer = @file_get_contents ('referer');
+$token = @file_get_contents ('token');
 $alioss_sigin = @file_get_contents ('.alioss_sigin');
 
 include_once "vendor/autoload.php";
@@ -14,7 +14,7 @@ $option = require ('./config.php');
 $mzstorage = new mzstorage();
 $SaveToDB = new SaveToDB();
 
-$mzstorage->setUrl($referer);
+$mzstorage->setUrl($token);
 
 $sigin = json_decode($alioss_sigin, true);
 if(empty($sigin) || time() - $sigin['time'] > 3500) {
