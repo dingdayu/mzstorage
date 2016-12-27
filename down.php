@@ -59,7 +59,7 @@ foreach ($list as $key => $value) {
         echo $exception->getMessage() . PHP_EOL;
         exit();
     }
-    $ret = $OSS->down(
+    $ret = $OSS->fdown(
         $signUrl,
         $local
     );

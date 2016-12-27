@@ -211,4 +211,63 @@ class OSS {
 
         return is_dir(dirname($path)) || mkdir(dirname($path), 0777, true);
     }
+
+    public function fdown($signedUrl = '', $path = '')
+    {
+        if(empty($signedUrl)) {
+            //echo "[ERROR] {$path}";
+            return false;
+        }
+        try {
+
+            is_dir(dirname($path)) || $this->mkdir($path);
+
+            $fileUrl = fopen($signedUrl, "rb");
+            if ($fileUrl) {
+                // 获取文件大小
+                $filesize = -1;
+                $headers = get_headers($signedUrl, 1);
+                if (!array_key_exists("Content-Length", $headers)) {
+                    $filesize = 0;
+                }else {
+                    $filesize = $headers["Content-Length"];
+                }
+
+                //不是所有的文件都会先返回大小的，
+                //有些动态页面不先返回总大小，这样就无法计算进度了
+
+                if ($filesize != -1) {
+                    $echo = "SIZE: " . $filesize;
+                }
+
+                $fileSave = fopen($path, "wb");
+                $downlen = 0;
+                if ($fileSave)
+                    while (!feof($fileUrl)) {
+                        $data = fread($fileUrl, 1024 * 8);    //默认获取8K
+                        $downlen += strlen($data);    // 累计已经下载的字节数
+                        fwrite($fileSave, $data, 1024 * 8);
+
+                        if($filesize != -1 && $filesize != 0) {
+                            printf("当前进度: [%-50s] %d%% 占用：%dM/%dM\r", str_repeat('#', $downlen/$filesize*100/2), 100, ($downlen/1024/1024), ($filesize/1024/1024));
+                        } else {
+                            printf("文件总量: %s 已下载：%dM \r", $filesize, $downlen/1024);
+                        }
+
+
+                        //ob_flush();
+                        //flush();
+                    }
+            }
+
+        } catch (\Exception $exception) {
+            //echo "$path " . $exception->getMessage() . PHP_EOL;
+            return false;
+        } finally {
+            fclose($fileUrl);
+            fclose($fileSave);
+        }
+
+        return true;
+    }
 }
