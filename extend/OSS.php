@@ -249,7 +249,12 @@ class OSS {
                         fwrite($fileSave, $data, 1024 * 8);
 
                         if($filesize != -1 && $filesize != 0) {
-                            printf("当前进度: [%-50s] %d%% 占用：%dM/%dM\r", str_repeat('#', $downlen/$filesize*100/2), 100, ($downlen/1024/1024), ($filesize/1024/1024));
+                            printf("当前进度: [%-50s] %d%% 占用：%dM/%dM\r",
+                                str_repeat('#', $downlen/$filesize*100/2),
+                                $downlen/$filesize*100,
+                                ($downlen/1024/1024),
+                                ($filesize/1024/1024)
+                            );
                         } else {
                             printf("文件总量: %s 已下载：%dM \r", $filesize, $downlen/1024);
                         }
