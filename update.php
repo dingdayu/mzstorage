@@ -22,7 +22,7 @@ $mzstorage = new mzstorage();
 $mzstorage->setUrl($referer);
 
 
-$SaveToDB = new SaveToDB();
+$saveToDB = new SaveToDB();
 
 $startTime = strtotime(date('Y-m-d',strtotime('-30 day'))) . '000';
 $endTime = strtotime(date('Y-m-d')) . '000';
@@ -32,11 +32,11 @@ $limit = 100;
 
 do {
 
-    $album = $mzstorage->get_listRange($startTime, $endTime, $limit, $offset);
+    $album = $mzstorage->getListRange($startTime, $endTime, $limit, $offset);
 
     if($album['code'] == 200) {
         //var_dump($dir['value']);
-        $SaveToDB->album($album['value']['file']);
+        $saveToDB->album($album['value']['file']);
         $count = count($album['value']['file']);
         $offset = $offset + $count;
         echo "相册拉取：{$offset}/{$album['value']['count']} 张" . PHP_EOL;

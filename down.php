@@ -12,14 +12,14 @@ include_once 'extend/OSS.php';
 $option = require ('./config.php');
 
 $mzstorage = new mzstorage();
-$SaveToDB = new SaveToDB();
+$saveToDB = new SaveToDB();
 
 $mzstorage->setUrl($token);
 
 $sigin = json_decode($alioss_sigin, true);
 if(empty($sigin) || time() - $sigin['time'] > 3500) {
     echo "更新OSS签名！" . PHP_EOL;
-    $sigin = $mzstorage->get_sig();
+    $sigin = $mzstorage->getSig();
 
     if($sigin['code'] != 200) {
         echo $sigin['message'] . PHP_EOL;
@@ -43,7 +43,7 @@ $OSS = new OSS(
 
 
 // 从数据库取需要下载的文件链接
-$list = $SaveToDB->getAlbumList(['is_delted' => 0, 'local' => '']);
+$list = $saveToDB->getAlbumList(['is_delted' => 0, 'local' => '']);
 
 if(empty($list)){
     echo "所有照片已下载完毕！".PHP_EOL;
@@ -65,7 +65,7 @@ foreach ($list as $key => $value) {
     );
     if($ret) {
         $value['local'] = $value['url'];
-        $SaveToDB->updateAlbum($value);
+        $saveToDB->updateAlbum($value);
         echo "[SUCCESS] '{$value['url']}'" . PHP_EOL;
     } else {
         echo "[ERROR] '{$value['url']}'" . PHP_EOL;

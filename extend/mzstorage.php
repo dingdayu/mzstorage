@@ -66,7 +66,7 @@ class mzstorage
      *
      * @return mixed
      */
-    public function get_sig()
+    public function getSig()
     {
         $url = 'https://mzstorage.meizu.com/file/get_sig';
         $output = $this->curl($url, 'post', ['type' => 2, 'token' => $this->token]);
@@ -120,7 +120,7 @@ class mzstorage
      *
      * @return mixed
      */
-    public function get_album_list($dirId = 0, $offset = 0, $limit = 48)
+    public function getAlbumList($dirId = 0, $offset = 0, $limit = 48)
     {
         $url = 'https://mzstorage.meizu.com/album/list';
         //偏移量  offset 为 page*limit
@@ -141,7 +141,7 @@ class mzstorage
      *
      * @return mixed
      */
-    public function get_dir_list($offset = 0, $limit = 30)
+    public function getDirList($offset = 0, $limit = 30)
     {
         $url = 'https://mzstorage.meizu.com/album/dir/list';
         //偏移量  offset 为 page*limit
@@ -160,7 +160,7 @@ class mzstorage
      * @author: dingdayu(614422099@qq.com)
      * @return mixed
      */
-    public function get_group()
+    public function getGroup()
     {
         $url = 'https://mzstorage.meizu.com/album/group';
         //偏移量  offset 为 page*limit
@@ -184,7 +184,7 @@ class mzstorage
      *
      * @return mixed
      */
-    public function get_listRange($startTime = 0, $endTime = 0, $limit = 100, $offset = 0)
+    public function getListRange($startTime = 0, $endTime = 0, $limit = 100, $offset = 0)
     {
         $url = 'https://mzstorage.meizu.com/album/listRange';
         //偏移量  offset 为 page*limit
