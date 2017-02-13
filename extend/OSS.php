@@ -138,6 +138,19 @@ class OSS {
         return $ret;
     }
 
+    /**
+     * curl
+     *
+     * @author: dingdayu(614422099@qq.com)
+     * @param string $url
+     * @param string $method
+     * @param array $data
+     * @param array $heard
+     * @param string $referer
+     * @param string $cookies
+     * @return mixed
+     * @throws Exception
+     */
     private function curl($url = '', $method = 'get', $data = [],
                           $heard = [], $referer = '', $cookies = '')
     {
@@ -212,6 +225,18 @@ class OSS {
         return is_dir(dirname($path)) || mkdir(dirname($path), 0777, true);
     }
 
+    /**
+     * 读取文件并保存到本地
+     * 理论上支持较大文件
+     *
+     * 支持的协议：
+     * @url：http://php.net/manual/zh/wrappers.php
+     *
+     * @author: dingdayu(614422099@qq.com)
+     * @param string $signedUrl
+     * @param string $path
+     * @return bool
+     */
     public function fdown($signedUrl = '', $path = '')
     {
         if(empty($signedUrl)) {
@@ -259,13 +284,13 @@ class OSS {
                             printf("文件总量: %s 已下载：%dM \r", $filesize, $downlen/1024);
                         }
 
-
                         //ob_flush();
                         //flush();
                     }
             }
 
-        } catch (\Exception $exception) {
+        } catch (\Error | \Exception $exception) {
+            // Throwable 支持PHP7
             //echo "$path " . $exception->getMessage() . PHP_EOL;
             return false;
         } finally {
