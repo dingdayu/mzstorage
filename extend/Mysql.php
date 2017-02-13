@@ -111,6 +111,14 @@ class Mysql
         return false;
     }
 
+    /**
+     * 更新数据
+     *
+     * @author: dingdayu(614422099@qq.com)
+     * @param string $sql
+     *
+     * @return bool|int
+     */
     public function update($sql = '')
     {
         if(!empty($sql)) {
@@ -120,6 +128,13 @@ class Mysql
         return false;
     }
 
+    /**
+     * 执行删除
+     *
+     * @author: dingdayu(614422099@qq.com)
+     * @param string $sql
+     * @return bool|int
+     */
     public function del($sql = '')
     {
         if(!empty($sql)) {
@@ -129,6 +144,13 @@ class Mysql
         return false;
     }
 
+    /**
+     * 执行sql
+     *
+     * @author: dingdayu(614422099@qq.com)
+     * @param string $sql
+     * @return bool|int
+     */
     public function exec($sql = '')
     {
         if(!empty($sql)) {
@@ -139,12 +161,24 @@ class Mysql
         return false;
     }
 
+    /**
+     * 记录日志
+     * @author: dingdayu(614422099@qq.com)
+     * @param string $sql
+     */
     public function saveLog($sql = '')
     {
         $file = dirname(__FILE__) . '/log/sql_' . date('y_m_d') . '.log';
         $this->log->write($sql, $file);
     }
 
+    /**
+     * 执行查询
+     *
+     * @author: dingdayu(614422099@qq.com)
+     * @param string $sql
+     * @return array|bool|void
+     */
     public function query($sql = '')
     {
         if(empty($sql)) {
