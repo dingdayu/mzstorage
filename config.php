@@ -14,7 +14,7 @@
 
 $root = dirname(__FILE__);
 
-return array(
+return [
     'DB' => [
         'host' => '127.0.0.1',      // 数据库ip地址
         'port' => 3306,             // 数据库开发端口
@@ -24,4 +24,4 @@ return array(
     ],
     // 本地保存目录  默认，目录下的 down 文件夹
     'DOWN_FILE' => $root . DIRECTORY_SEPARATOR. 'down'
-);
+];
