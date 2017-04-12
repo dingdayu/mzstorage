@@ -9,9 +9,8 @@
 
 3、 登录 https://cloud.flyme.cn/browser/main.jsp 点击 `云相册`
 
- - 这个时候页面地址栏：`https://photos.flyme.cn/photo` -
-
- - 这个时候，刷新一下页面（F5）。地址栏会变成：`https://photos.flyme.cn/photo?token=******` (token后内容被省略) -
+ ~~ 页面地址栏：`https://photos.flyme.cn/photo` ~~
+ ~~ 这个时候，刷新一下页面（F5）。地址栏会变成：`https://photos.flyme.cn/photo?token=******` (token后内容被省略) ~~
 
 > 或者 打开浏览器调试工具，在`Console`中输入下面的代码：
 
