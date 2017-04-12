@@ -9,16 +9,15 @@
 
 3、 登录 https://cloud.flyme.cn/browser/main.jsp 点击 `云相册`
 
- ~~ 页面地址栏：`https://photos.flyme.cn/photo` ~~
- ~~ 这个时候，刷新一下页面（F5）。地址栏会变成：`https://photos.flyme.cn/photo?token=******` (token后内容被省略) ~~
-
-> 或者 打开浏览器调试工具，在`Console`中输入下面的代码：
+> 打开浏览器调试工具，在`Console`中输入下面的代码：
 
 ```
 function getCookie(name){var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");if(arr=document.cookie.match(reg)){return unescape(arr[2])}else{return null}}getCookie("_utoken");
 ```
 
 下面会出现一段乱码，将引号里面的字符串复制出来替换到`token`即可。
+
+> 如果在拉取过程中出现失效，请刷新页面，然后重新按照上面的方法更新 `token` 即可
 
 
 4、 赋值地址栏URL，打开`token`，清空内容，并粘贴！
