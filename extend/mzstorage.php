@@ -25,7 +25,7 @@ class mzstorage
             exit();
             //throw new Exception("token url not empty！");
         }
-        return $this->getToken($url);
+        return $this->getToken(trim($url));
     }
 
     public function getToken($url = '')
@@ -33,6 +33,10 @@ class mzstorage
         if(empty($url)) {
             return null;
         }
+	if(strpos($url, 'http') === false) {
+		$this->token = $url;
+		return $this->token;
+	}
         $urlArr = parse_url($url);
         $query = $this->convertUrlQuery($urlArr['query']);
         $this->token = $query['token'];
