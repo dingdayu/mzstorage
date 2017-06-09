@@ -12,27 +12,27 @@
 // | Explain: 请在这里填写说明
 // +----------------------------------------------------------------------
 
-$referer = file_get_contents('referer');
+$token = file_get_contents('token');
 
 include_once "vendor/autoload.php";
 include_once "extend/mzstorage.php";
 include_once 'extend/SaveToDB.php';
 
 $mzstorage = new mzstorage();
-$mzstorage->setUrl($referer);
+$mzstorage->setUrl($token);
 
 
 $saveToDB = new SaveToDB();
 
-$startTime = strtotime(date('Y-m-d',strtotime('-30 day'))) . '000';
-$endTime = strtotime(date('Y-m-d')) . '000';
+$startTime = strtotime(date('Y-m-d',strtotime('-30 day')));
+$endTime = strtotime(date('Y-m-d'));
 
 $offset = 0;
 $limit = 100;
 
 do {
 
-    $album = $mzstorage->getListRange($startTime, $endTime, $limit, $offset);
+    $album = $mzstorage->getListRange($startTime . '000', $endTime . '000', $limit, $offset);
 
     if($album['code'] == 200) {
         //var_dump($dir['value']);
@@ -50,4 +50,4 @@ do {
     sleep(3);
 } while (!$album['value']['end']);
 
-echo "[" . date('Y-m-d') . "] "."[" . date('Y-m-d',strtotime('-30 day')) . "] 更新完成！";
+echo "[" . date('Y-m-d', $startTime) . "] "."[" . date('Y-m-d', $endTime) . "] 更新完成！";
