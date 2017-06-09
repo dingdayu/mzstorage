@@ -14,33 +14,30 @@
 
 $token = file_get_contents('token');
 
-include_once "vendor/autoload.php";
-include_once "extend/mzstorage.php";
+include_once 'vendor/autoload.php';
+include_once 'extend/mzstorage.php';
 include_once 'extend/SaveToDB.php';
 
 $mzstorage = new mzstorage();
 $mzstorage->setUrl($token);
 
-
 $saveToDB = new SaveToDB();
 
-$startTime = strtotime(date('Y-m-d',strtotime('-30 day')));
+$startTime = strtotime(date('Y-m-d', strtotime('-30 day')));
 $endTime = strtotime(date('Y-m-d'));
 
 $offset = 0;
 $limit = 100;
 
 do {
+    $album = $mzstorage->getListRange($startTime.'000', $endTime.'000', $limit, $offset);
 
-    $album = $mzstorage->getListRange($startTime . '000', $endTime . '000', $limit, $offset);
-
-    if($album['code'] == 200) {
+    if ($album['code'] === 200) {
         //var_dump($dir['value']);
         $saveToDB->album($album['value']['file']);
         $count = count($album['value']['file']);
         $offset = $offset + $count;
-        echo "相册拉取：{$offset}/{$album['value']['count']} 张" . PHP_EOL;
-
+        echo "相册拉取：{$offset}/{$album['value']['count']} 张".PHP_EOL;
     } else {
         $mzstorage->tipUpdateToken($album['message']);
     }
@@ -48,4 +45,4 @@ do {
     sleep(3);
 } while (!$album['value']['end']);
 
-echo "[" . date('Y-m-d', $startTime) . "] "."[" . date('Y-m-d', $endTime) . "] 更新完成！";
+echo '['.date('Y-m-d', $startTime).'] '.'['.date('Y-m-d', $endTime).'] 更新完成！';

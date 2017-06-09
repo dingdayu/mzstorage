@@ -20,14 +20,15 @@ function convertUrlQuery($query)
         $item = explode('=', $param);
         $params[$item[0]] = $item[1];
     }
+
     return $params;
 }
 
 function curl($url = '', $method = 'get', $data = [], $heard = [], $referer = '')
 {
     $ch = curl_init();
-    if ($method == 'get') {
-        $url = $url . '?' . http_build_query($data);
+    if ($method === 'get') {
+        $url = $url.'?'.http_build_query($data);
     } else {
         // post数据
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -48,9 +49,10 @@ function curl($url = '', $method = 'get', $data = [], $heard = [], $referer = ''
 
     $output = curl_exec($ch);
 
-    if ($output == false) {
-        throw new Exception('CURL ERROR: ' . curl_error($ch));
+    if ($output === false) {
+        throw new Exception('CURL ERROR: '.curl_error($ch));
     }
     curl_close($ch);
+
     return $output;
 }
