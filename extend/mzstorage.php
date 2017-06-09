@@ -12,59 +12,66 @@
 // | Explain: 请在这里填写说明
 // +----------------------------------------------------------------------
 
-
 class mzstorage
 {
     public $token;
 
     public function setUrl($url = '')
     {
-        if(empty($url)) {
-            echo "token url 不可为空！" . PHP_EOL;
-            echo "> 请获取携带token的url并复制到token中！".PHP_EOL;
+        if (empty($url)) {
+            echo 'token url 不可为空！'.PHP_EOL;
+            echo '> 请获取携带token的url并复制到token中！'.PHP_EOL;
             exit();
             //throw new Exception("token url not empty！");
         }
+
         return $this->getToken(trim($url));
     }
 
     /**
-     * 从token文件中获取token内容
-     * 
-     * @param  string $url [description]
-     * @return string      token内容
+     * 从token文件中获取token内容.
+     *
+     * @param string $url [description]
+     *
+     * @return string token内容
      */
     public function getToken($url = '')
     {
-        if(empty($url)) {
+        if (empty($url)) {
             return null;
         }
-    	if(strpos($url, 'http') === false) {
-    		$this->token = $url;
-    		return $this->token;
-    	}
+        if (strpos($url, 'http') === false) {
+            $this->token = $url;
+
+            return $this->token;
+        }
         $urlArr = parse_url($url);
         $query = $this->convertUrlQuery($urlArr['query']);
         $this->token = $query['token'];
+
         return $this->token;
     }
 
     /**
-     * 提示用户更新token
-     * 
-     * @param  string $msg 附加提示语
+     * 提示用户更新token.
+     *
+     * @param string $msg 附加提示语
      */
     public function tipUpdateToken($msg = '')
     {
-        if(!empty($msg)) echo '[MSG] ' . $msg . PHP_EOL;
-        echo "[ERROR] TOKEN 失效，请更新token！". PHP_EOL;
-        echo "\t > 刷新flyme云服务的相册页面，复制获取token的js方法到Console窗口下获取token，并更新到token文件中。". PHP_EOL;
+        if (!empty($msg)) {
+            echo '[MSG] '.$msg.PHP_EOL;
+        }
+        echo '[ERROR] TOKEN 失效，请更新token！'.PHP_EOL;
+        echo "\t > 刷新flyme云服务的相册页面，复制获取token的js方法到Console窗口下获取token，并更新到token文件中。".PHP_EOL;
         exit();
     }
 
     /**
-     * 转换url到数组
+     * 转换url到数组.
+     *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @param $query
      *
      * @return array
@@ -77,11 +84,12 @@ class mzstorage
             $item = explode('=', $param);
             $params[$item[0]] = $item[1];
         }
+
         return $params;
     }
 
     /**
-     * 获取签名
+     * 获取签名.
      *
      * code => 401 用户验证失败
      *
@@ -101,18 +109,20 @@ class mzstorage
      * 执行网络请求
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @param string $url
      * @param string $method
      * @param array  $data
      *
      * @return mixed
+     *
      * @throws Exception
      */
     private function curl($url = '', $method = 'get', $data = [])
     {
         $ch = curl_init();
-        if ($method == 'get') {
-            $url = $url . '?' . http_build_query($data);
+        if ($method === 'get') {
+            $url = $url.'?'.http_build_query($data);
         } else {
             // post数据
             curl_setopt($ch, CURLOPT_POST, 1);
@@ -125,8 +135,8 @@ class mzstorage
 
         $output = curl_exec($ch);
 
-        if ($output == false) {
-            throw new Exception('CURL ERROR: ' . curl_error($ch));
+        if ($output === false) {
+            throw new Exception('CURL ERROR: '.curl_error($ch));
         }
         curl_close($ch);
 
@@ -134,12 +144,13 @@ class mzstorage
     }
 
     /**
-     * 获取相册列表
+     * 获取相册列表.
      *
      * @author: dingdayu(614422099@qq.com)
-     * @param int    $dirId     相册id
-     * @param int    $offset    偏移量  offset 为 page*limit
-     * @param int    $limit     每页记录数
+     *
+     * @param int $dirId  相册id
+     * @param int $offset 偏移量  offset 为 page*limit
+     * @param int $limit  每页记录数
      *
      * @return mixed
      */
@@ -157,10 +168,12 @@ class mzstorage
     }
 
     /**
-     * 获取图册列表（相册内容）
+     * 获取图册列表（相册内容）.
+     *
      * @author: dingdayu(614422099@qq.com)
-     * @param int    $offset    偏移量  offset 为 page*limit
-     * @param int    $limit     每页记录数
+     *
+     * @param int $offset 偏移量  offset 为 page*limit
+     * @param int $limit  每页记录数
      *
      * @return mixed
      */
@@ -178,9 +191,10 @@ class mzstorage
     }
 
     /**
-     * 获取时间轴列表
+     * 获取时间轴列表.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @return mixed
      */
     public function getGroup()
@@ -197,9 +211,10 @@ class mzstorage
     }
 
     /**
-     * 获取时间轴
+     * 获取时间轴.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @param int $startTime
      * @param int $endTime
      * @param int $limit
