@@ -28,19 +28,38 @@ class mzstorage
         return $this->getToken(trim($url));
     }
 
+    /**
+     * 从token文件中获取token内容
+     * 
+     * @param  string $url [description]
+     * @return string      token内容
+     */
     public function getToken($url = '')
     {
         if(empty($url)) {
             return null;
         }
-	if(strpos($url, 'http') === false) {
-		$this->token = $url;
-		return $this->token;
-	}
+    	if(strpos($url, 'http') === false) {
+    		$this->token = $url;
+    		return $this->token;
+    	}
         $urlArr = parse_url($url);
         $query = $this->convertUrlQuery($urlArr['query']);
         $this->token = $query['token'];
         return $this->token;
+    }
+
+    /**
+     * 提示用户更新token
+     * 
+     * @param  string $msg 附加提示语
+     */
+    public function tipUpdateToken($msg = '')
+    {
+        if(!empty($msg)) echo '[MSG] ' $msg . PHP_EOL;
+        echo "[ERROR] TOKEN 失效，请更新token！". PHP_EOL;
+        echo "\t > 刷新flyme云服务的相册页面，复制获取token的js方法到Console窗口下获取token，并更新到token文件中。". PHP_EOL;
+        exit();
     }
 
     /**

@@ -66,10 +66,8 @@ do {
         echo "相册拉取：{$offset}/{$album['value']['count']} 张" . PHP_EOL;
 
     } else {
-        echo $album['message'] . PHP_EOL;
-        echo "[ERROR] TOKEN 失效，请更新token！". PHP_EOL;
-        echo "> 请获取携带token的url并复制到token中！";
-        exit();
+        // 提示更新token
+        $mzstorage->tipUpdateToken($album['message']);
     }
 
     sleep(3);

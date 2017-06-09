@@ -22,10 +22,8 @@ if(empty($sigin) || time() - $sigin['time'] > 3500) {
     $sigin = $mzstorage->getSig();
 
     if($sigin['code'] != 200) {
-        echo $sigin['message'] . PHP_EOL;
-        echo "[ERROR] TOKEN 失效，请更新token！". PHP_EOL;
-        echo "> 请获取携带token的url并复制到token中！" . PHP_EOL;
-        exit();
+        // 提示更新token
+        $mzstorage->tipUpdateToken($sigin['message']);
     }
 
     // 将签名放入缓存文件

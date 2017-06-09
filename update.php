@@ -42,9 +42,7 @@ do {
         echo "相册拉取：{$offset}/{$album['value']['count']} 张" . PHP_EOL;
 
     } else {
-        echo $album['message'] . PHP_EOL;
-        echo "[ERROR] TOKEN 失效，请更新token！". PHP_EOL;
-        exit();
+        $mzstorage->tipUpdateToken($album['message']);
     }
 
     sleep(3);
