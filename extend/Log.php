@@ -1,4 +1,5 @@
 <?php
+
 // +----------------------------------------------------------------------
 // | JIANKE [ WWW.XYSER.COM ]
 // +----------------------------------------------------------------------
@@ -17,14 +18,14 @@ class Log
 {
     protected $config = array(
         'log_time_format' => ' c ',
-        'log_file_size'   => 2097152,
-        'log_path'        => '',
+        'log_file_size' => 2097152,
+        'log_path' => '',
     );
 
     // 实例化并传入参数
     public function __construct($config = [])
     {
-        $this->config['log_path'] = dirname(__FILE__) . '/';
+        $this->config['log_path'] = dirname(__FILE__).'/';
         $this->config = array_merge($this->config, $config);
     }
 
@@ -32,23 +33,23 @@ class Log
     {
         static $log_instance = null;
         if (!isset($log_instance)) {
-            $log_instance = new Log();
+            $log_instance = new self();
         }
+
         return $log_instance;
     }
 
     /**
-     * 日志写入接口
-     * @access public
-     * @param string $log 日志信息
-     * @param string $destination  写入目标
-     * @return void
+     * 日志写入接口.
+     *
+     * @param string $log         日志信息
+     * @param string $destination 写入目标
      */
     public function write($log, $destination = '')
     {
         $now = date($this->config['log_time_format']);
         if (empty($destination)) {
-            $destination = $this->config['log_path'] . date('y_m_d') . '.log';
+            $destination = $this->config['log_path'].date('y_m_d').'.log';
         }
         // 自动创建日志目录
         $log_dir = dirname($destination);
@@ -57,8 +58,8 @@ class Log
         }
         //检测日志文件大小，超过配置大小则备份日志文件重新生成
         if (is_file($destination) && floor($this->config['log_file_size']) <= filesize($destination)) {
-            rename($destination, dirname($destination) . '/' . time() . '-' . basename($destination));
+            rename($destination, dirname($destination).'/'.time().'-'.basename($destination));
         }
-        error_log("[{$now}] " . "\r\n{$log}\r\n", 3, $destination);
+        error_log("[{$now}] "."\r\n{$log}\r\n", 3, $destination);
     }
 }

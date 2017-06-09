@@ -12,18 +12,19 @@
 // | Explain: 请在这里填写说明
 // +----------------------------------------------------------------------
 
-include_once "Mysql.php";
+include_once 'Mysql.php';
 
 class SaveToDB
 {
-
     public function __construct()
     {
     }
 
     /**
-     * 更新相册目录
+     * 更新相册目录.
+     *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @param array $dir
      */
     public function dir($dir = [])
@@ -41,7 +42,7 @@ class SaveToDB
     }
 
     /**
-     * 获取一个相册
+     * 获取一个相册.
      *
      * @author: dingdayu(614422099@qq.com)
      *
@@ -53,11 +54,12 @@ class SaveToDB
     {
         $sql = "select * from `dy_mz_dir` WHERE `dir_id` = '{$dir_id}' AND `is_delted` = 0";
         $ret = Mysql::getInstance()->query($sql);
+
         return $ret;
     }
 
     /**
-     * 添加一个相册
+     * 添加一个相册.
      *
      * @author: dingdayu(614422099@qq.com)
      *
@@ -67,13 +69,15 @@ class SaveToDB
      */
     private function addDir($item = [])
     {
-        $date_time = date("Y-m-d H:i:s");
+        $date_time = date('Y-m-d H:i:s');
         $sql = "insert into `dy_mz_dir` (`dir_id`, `dirName`, `fileNum`, `icon`, `sqlNow`, `modifyTime`, `createTime`, `userId`, `totalSize`, `status`, `create_time`, `update_time`) values ('{$item['id']}', '{$item['dirName']}', '{$item['fileNum']}', '{$item['icon']}', '{$item['sqlNow']}', '{$item['modifyTime']}', '{$item['createTime']}', '{$item['userId']}', '{$item['totalSize']}', '{$item['status']}', '{$date_time}', '{$date_time}')";
+
         return Mysql::getInstance()->insert($sql);
     }
 
     /**
-     * 更新一个相册
+     * 更新一个相册.
+     *
      * @author: dingdayu(614422099@qq.com)
      *
      * @param array $item
@@ -82,8 +86,9 @@ class SaveToDB
      */
     private function updateDir($item = [])
     {
-        $date_time = date("Y-m-d H:i:s");
+        $date_time = date('Y-m-d H:i:s');
         $sql = "update `dy_mz_dir` set `dirName`='{$item['dirName']}', `fileNum`='{$item['fileNum']}', `icon`='{$item['icon']}', `sqlNow`='{$item['sqlNow']}', `modifyTime`='{$item['modifyTime']}', `createTime`='{$item['createTime']}', `userId`='{$item['userId']}', `totalSize`='{$item['totalSize']}', `status`='{$item['status']}', `update_time`='{$date_time}' where `dir_id`='{$item['id']}' ";
+
         return Mysql::getInstance()->update($sql);
     }
 
@@ -91,6 +96,7 @@ class SaveToDB
      * 更新相册图片.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @param array $album
      */
     public function album($album = [])
@@ -110,7 +116,7 @@ class SaveToDB
     }
 
     /**
-     * 获取一个相册
+     * 获取一个相册.
      *
      * @author: dingdayu(614422099@qq.com)
      *
@@ -122,11 +128,12 @@ class SaveToDB
     {
         $sql = "select * from `dy_mz_album` WHERE `album_id` = '{$album_id}' AND `is_delted` = 0";
         $ret = Mysql::getInstance()->query($sql);
+
         return $ret;
     }
 
     /**
-     * 添加一个相册
+     * 添加一个相册.
      *
      * @author: dingdayu(614422099@qq.com)
      *
@@ -136,8 +143,8 @@ class SaveToDB
      */
     private function addAlbum($item = [])
     {
-        $date_time = date("Y-m-d H:i:s");
-        $item['isVideo'] = (int)$item['isVideo'];
+        $date_time = date('Y-m-d H:i:s');
+        $item['isVideo'] = (int) $item['isVideo'];
         $sql = <<<SQL
 INSERT INTO `dy_mz_album`(
     `album_id` ,
@@ -202,7 +209,8 @@ SQL;
     }
 
     /**
-     * 更新一个相册
+     * 更新一个相册.
+     *
      * @author: dingdayu(614422099@qq.com)
      *
      * @param array $item
@@ -211,16 +219,16 @@ SQL;
      */
     public function updateAlbum($item = [])
     {
-        $date_time = date("Y-m-d H:i:s");
+        $date_time = date('Y-m-d H:i:s');
 
         $item['update_time'] = $date_time;
         unset($item['id']);
 
         $whereSet = '';
 
-        if(!empty($item)) {
+        if (!empty($item)) {
             foreach ($item as $key => $value) {
-                if($key != 'album_id') {
+                if ($key !== 'album_id') {
                     $whereSet .= "`{$key}` = '{$value}' ,";
                 }
             }
@@ -228,6 +236,7 @@ SQL;
         $whereSet = trim($whereSet, ',');
 
         $sql = "UPDATE `dy_mz_album` SET {$whereSet} WHERE `album_id` = '{$item['album_id']}'";
+
         return Mysql::getInstance()->update($sql);
     }
 
@@ -235,13 +244,13 @@ SQL;
     {
         $whereStr = '';
         $limitStr = '';
-        if(!empty($where)) {
+        if (!empty($where)) {
             foreach ($where as $key => $value) {
-                if(!empty($whereStr)) {
+                if (!empty($whereStr)) {
                     $whereStr .= ' AND ';
                 }
                 // 支持<> 不等写法
-                if(is_array($value)) {
+                if (is_array($value)) {
                     $whereStr .= "`{$key}` {$value[0]} '$value[1]'";
                 } else {
                     $whereStr .= "`{$key}` = '$value'";
@@ -249,11 +258,11 @@ SQL;
             }
         }
 
-        if(!empty($limit)) {
-            $limitStr = 'LIMIT '. $limit;
+        if (!empty($limit)) {
+            $limitStr = 'LIMIT '.$limit;
         }
 
-        if(empty($whereStr)) {
+        if (empty($whereStr)) {
             $sql = "select * from `dy_mz_album` WHERE `is_delted` = 0 {$limitStr}";
         } else {
             $sql = "select * from `dy_mz_album` WHERE `is_delted` = 0 AND {$whereStr} {$limitStr}";
@@ -262,9 +271,10 @@ SQL;
         try {
             $ret = Mysql::getInstance()->query($sql);
         } catch (Exception $exception) {
-            echo $sql . PHP_EOL;
-            echo $exception->getMessage() . PHP_EOL;
+            echo $sql.PHP_EOL;
+            echo $exception->getMessage().PHP_EOL;
             exit();
+
             return [];
         }
 
@@ -275,12 +285,14 @@ SQL;
      * 获取相册目录列表.
      *
      * @author: dingdayu(614422099@qq.com)
+     *
      * @return mixed
      */
     public function getDirList()
     {
-        $sql = "select * from `dy_mz_dir` WHERE `is_delted` = 0";
+        $sql = 'select * from `dy_mz_dir` WHERE `is_delted` = 0';
         $ret = Mysql::getInstance()->query($sql);
+
         return $ret;
     }
 }
