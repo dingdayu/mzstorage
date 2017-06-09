@@ -5,9 +5,11 @@
 
 1、 [配置数据库](#创建数据表 "配置数据库") 
 
-2、[修改配置](#修改配置 "修改配置") 
+2、 [修改配置](#修改配置 "修改配置") 
 
-3、 登录 https://cloud.flyme.cn/browser/main.jsp 点击 `云相册`
+3、 [获取token]
+
+登录 https://cloud.flyme.cn/browser/main.jsp 点击 `云相册`
 
 > 打开浏览器调试工具，在`Console`中输入下面的代码：
 
@@ -16,16 +18,9 @@ function getCookie(name){var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");if
 ```
 
 下面会出现一段乱码，将引号里面的字符串复制出来替换到`token`即可。
+更新token时，请先刷新页面，再执行上述操作获取新的token。
 
 > 如果在拉取过程中出现失效，请刷新页面，然后重新按照上面的方法更新 `token` 即可
-
-
-4、 赋值地址栏URL，打开`token`，清空内容，并粘贴！
-
-`linux`或者`mac` 下，可直接在目录下，通过输出通道到`token`中：
-```
-echo "https://photos.flyme.cn/photo?token=******" > token
-```
 
 ### 特别注意
 
@@ -52,6 +47,12 @@ php album.php
 php album.php 277
 
 ```
+3、更新最近图片
+```
+php update.php
+```
+
+
 #### 下载图片到本地
 ```
 php down.php
