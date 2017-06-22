@@ -64,7 +64,7 @@ class mzstorage
         }
         echo '[ERROR] TOKEN 失效，请更新token！'.PHP_EOL;
         echo "\t > 刷新flyme云服务的相册页面，复制获取token的js方法到Console窗口下获取token，并更新到token文件中。".PHP_EOL;
-        fwrite(STDOUT, "请输入新的Token:");
+        fwrite(STDOUT, '请输入新的Token:');
         $this->token = trim(fgets(STDIN));
     }
 
