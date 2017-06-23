@@ -38,11 +38,10 @@ do {
         $count = count($album['value']['file']);
         $offset = $offset + $count;
         echo "相册拉取：{$offset}/{$album['value']['count']} 张".PHP_EOL;
+        sleep(1);
     } else {
         $mzstorage->tipUpdateToken($album['message']);
     }
-
-    sleep(3);
 } while (!$album['value']['end']);
 
 echo '['.date('Y-m-d', $startTime).'] '.'['.date('Y-m-d', $endTime).'] 更新完成！';
