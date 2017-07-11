@@ -19,9 +19,7 @@ class mzstorage
     public function setUrl($url = '')
     {
         if (empty($url)) {
-            echo 'token url 不可为空！'.PHP_EOL;
-            echo '> 请获取携带token的url并复制到token中！'.PHP_EOL;
-            exit();
+            $this->tipUpdateToken('Token 为空！');
             //throw new Exception("token url not empty！");
         }
 
@@ -64,8 +62,9 @@ class mzstorage
         }
         echo '[ERROR] TOKEN 失效，请更新token！'.PHP_EOL;
         echo "\t > 刷新flyme云服务的相册页面，复制获取token的js方法到Console窗口下获取token，并更新到token文件中。".PHP_EOL;
-        fwrite(STDOUT, '[INPUT] 请输入新的Token:');
-        $this->token = trim(fgets(STDIN));
+        fwrite(STDOUT, '[INPUT] 请输入新的Token:' . PHP_EOL);
+        $this->token = trim(fgets(STDIN, 9216));
+        fscanf(STDIN, "%s\n", $this->token);
         file_put_contents('token', $this->token);
         fwrite(STDOUT, '[NOTICE] Token 已更新。');
     }
@@ -104,7 +103,6 @@ class mzstorage
     {
         $url = 'https://mzstorage.meizu.com/file/get_sig';
         $output = $this->curl($url, 'post', ['type' => 2, 'token' => $this->token]);
-        //var_dump(json_decode($output, true));
         return json_decode($output, true);
     }
 
@@ -166,7 +164,6 @@ class mzstorage
             'post',
             ['dirId' => $dirId, 'limit' => $limit, 'offset' => $offset, 'order' => 1, 'token' => $this->token]
         );
-        //var_dump(json_decode($output, true));
         return json_decode($output, true);
     }
 
@@ -189,7 +186,6 @@ class mzstorage
             'post',
             ['limit' => $limit, 'offset' => $offset, 'order' => 1, 'token' => $this->token]
         );
-        //var_dump(json_decode($output, true));
         return json_decode($output, true);
     }
 
@@ -209,7 +205,6 @@ class mzstorage
             'post',
             ['order' => 1, 'token' => $this->token]
         );
-        //var_dump(json_decode($output, true));
         return json_decode($output, true);
     }
 
@@ -234,7 +229,6 @@ class mzstorage
             'post',
             ['startTime' => $startTime, 'endTime' => $endTime, 'limit' => $limit, 'offset' => $offset, 'order' => 1, 'token' => $this->token]
         );
-        //var_dump(json_decode($output, true));
         return json_decode($output, true);
     }
 }
