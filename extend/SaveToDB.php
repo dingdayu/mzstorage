@@ -274,8 +274,6 @@ SQL;
             echo $sql.PHP_EOL;
             echo $exception->getMessage().PHP_EOL;
             exit();
-
-            return [];
         }
 
         return $ret;
