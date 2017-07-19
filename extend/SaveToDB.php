@@ -240,6 +240,13 @@ SQL;
         return Mysql::getInstance()->update($sql);
     }
 
+    /**
+     * 取某个相册的图片列表
+     *
+     * @param array $where
+     * @param int $limit
+     * @return mixed
+     */
     public function getAlbumList($where = [], $limit = 0)
     {
         $whereStr = '';
