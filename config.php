@@ -24,4 +24,6 @@ return [
     ],
     // 本地保存目录  默认，目录下的 down 文件夹
     'DOWN_FILE' => $root.DIRECTORY_SEPARATOR.'down',
+
+    'DOWN_FILE_TYPE' => 'dir', // dir:根据相册目录分布 alioss: 根据阿里云存储目录
 ];
