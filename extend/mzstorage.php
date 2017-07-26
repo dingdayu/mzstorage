@@ -227,7 +227,24 @@ class mzstorage
         $output = $this->curl(
             $url,
             'post',
-            ['startTime' => $startTime, 'endTime' => $endTime, 'limit' => $limit, 'offset' => $offset, 'order' => 1, 'token' => $this->token]
+            ['startTime' => $startTime, 'endTime' => $endTime, 'limit' => $limit, 'offset' => $offset, 'order' => 1,'isWebp' => true, 'token' => $this->token]
+        );
+        return json_decode($output, true);
+    }
+
+    /**
+     * 获取用户相册信息
+     *
+     * @json {"code":200,"message":"ok","value":{"vipId":2,"maxFileNum":0,"vip":2,"modifyTime":1499672059000,"isMaxLevel":0,"vipName":"免费标准版","createTime":1477824798000,"endTime":0,"now":1499789886901,"fileNum":4732,"usedVolume":17761892038,"maxVolume":21474836480}}
+     * @return mixed
+     */
+    public function getUserInfo()
+    {
+        $url = 'https://mzstorage.meizu.com/user/info';
+        $output = $this->curl(
+            $url,
+            'post',
+            ['type' => 0, 'token' => $this->token]
         );
         return json_decode($output, true);
     }
