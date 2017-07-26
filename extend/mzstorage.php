@@ -62,9 +62,9 @@ class mzstorage
         }
         echo '[ERROR] TOKEN 失效，请更新token！'.PHP_EOL;
         echo "\t > 刷新flyme云服务的相册页面，复制获取token的js方法到Console窗口下获取token，并更新到token文件中。".PHP_EOL;
-        fwrite(STDOUT, '[INPUT] 请输入新的Token:' . PHP_EOL);
+        fwrite(STDOUT, '[INPUT] 请输入新的Token:'.PHP_EOL);
         $this->token = trim(fgets(STDIN, 9216));
-        if(empty($this->token)) {
+        if (empty($this->token)) {
             $this->token = file_get_contents('token');
         } else {
             //fscanf(STDIN, "%s\n", $this->token);
@@ -107,6 +107,7 @@ class mzstorage
     {
         $url = 'https://mzstorage.meizu.com/file/get_sig';
         $output = $this->curl($url, 'post', ['type' => 2, 'token' => $this->token]);
+
         return json_decode($output, true);
     }
 
@@ -168,6 +169,7 @@ class mzstorage
             'post',
             ['dirId' => $dirId, 'limit' => $limit, 'offset' => $offset, 'order' => 1, 'token' => $this->token]
         );
+
         return json_decode($output, true);
     }
 
@@ -190,6 +192,7 @@ class mzstorage
             'post',
             ['limit' => $limit, 'offset' => $offset, 'order' => 1, 'token' => $this->token]
         );
+
         return json_decode($output, true);
     }
 
@@ -209,6 +212,7 @@ class mzstorage
             'post',
             ['order' => 1, 'token' => $this->token]
         );
+
         return json_decode($output, true);
     }
 
@@ -231,15 +235,17 @@ class mzstorage
         $output = $this->curl(
             $url,
             'post',
-            ['startTime' => $startTime, 'endTime' => $endTime, 'limit' => $limit, 'offset' => $offset, 'order' => 1,'isWebp' => true, 'token' => $this->token]
+            ['startTime' => $startTime, 'endTime' => $endTime, 'limit' => $limit, 'offset' => $offset, 'order' => 1, 'isWebp' => true, 'token' => $this->token]
         );
+
         return json_decode($output, true);
     }
 
     /**
-     * 获取用户相册信息
+     * 获取用户相册信息.
      *
      * @json {"code":200,"message":"ok","value":{"vipId":2,"maxFileNum":0,"vip":2,"modifyTime":1499672059000,"isMaxLevel":0,"vipName":"免费标准版","createTime":1477824798000,"endTime":0,"now":1499789886901,"fileNum":4732,"usedVolume":17761892038,"maxVolume":21474836480}}
+     *
      * @return mixed
      */
     public function getUserInfo()
@@ -250,6 +256,7 @@ class mzstorage
             'post',
             ['type' => 0, 'token' => $this->token]
         );
+
         return json_decode($output, true);
     }
 }

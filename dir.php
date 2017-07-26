@@ -25,14 +25,13 @@ function getDir(mzstorage $mzstorage)
             getDir($mzstorage);
         }
     } catch (Exception $exception) {
-        if($exception instanceof PDOException) {
-            echo "数据库链接失败，请检查链接！" . PHP_EOL;
+        if ($exception instanceof PDOException) {
+            echo '数据库链接失败，请检查链接！'.PHP_EOL;
             exit();
         }
-        echo '遇到未知：' . $exception->getMessage();
+        echo '遇到未知：'.$exception->getMessage();
         exit();
     }
-
 }
 
 function showDir($list = [])
@@ -49,4 +48,3 @@ function showDir($list = [])
     echo '-------------------'.PHP_EOL;
     echo "请输入: 'php album.php 277' 进行采集".PHP_EOL;
 }
-
