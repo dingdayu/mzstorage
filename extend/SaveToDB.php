@@ -241,10 +241,11 @@ SQL;
     }
 
     /**
-     * 取某个相册的图片列表
+     * 取某个相册的图片列表.
      *
      * @param array $where
-     * @param int $limit
+     * @param int   $limit
+     *
      * @return mixed
      */
     public function getAlbumList($where = [], $limit = 0)

@@ -55,7 +55,7 @@ class Mysql
                 $this->passwd
             );
         } catch (PDOException $e) {
-//            echo "** 数据库链接错误，请检查配置！".PHP_EOL;
+            //            echo "** 数据库链接错误，请检查配置！".PHP_EOL;
 //            exit();
             throw $e;
         }

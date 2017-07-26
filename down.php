@@ -46,7 +46,7 @@ $list = $saveToDB->getAlbumList(['is_delted' => 0, 'local' => ''], 1000);
 while ($list) {
     foreach ($list as $key => $value) {
         //子进程得到的$pid为0, 所以这里是子进程执行的逻辑。
-        if('dir' == $option['DOWN_FILE_TYPE']) {
+        if ('dir' === $option['DOWN_FILE_TYPE']) {
             $local = $option['DOWN_FILE'].DIRECTORY_SEPARATOR.$value['dirName'].DIRECTORY_SEPARATOR.$value['fileName'];
         } else {
             $local = $option['DOWN_FILE'].DIRECTORY_SEPARATOR.$value['url'];
@@ -73,7 +73,6 @@ while ($list) {
     }
     $list = $saveToDB->getAlbumList(['is_delted' => 0, 'local' => ''], 1000);
 }
-
 
 if (empty($list)) {
     echo '所有照片已下载完毕！'.PHP_EOL;
