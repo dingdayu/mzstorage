@@ -64,8 +64,12 @@ class mzstorage
         echo "\t > 刷新flyme云服务的相册页面，复制获取token的js方法到Console窗口下获取token，并更新到token文件中。".PHP_EOL;
         fwrite(STDOUT, '[INPUT] 请输入新的Token:' . PHP_EOL);
         $this->token = trim(fgets(STDIN, 9216));
-        fscanf(STDIN, "%s\n", $this->token);
-        file_put_contents('token', $this->token);
+        if(empty($this->token)) {
+            $this->token = file_get_contents('token');
+        } else {
+            //fscanf(STDIN, "%s\n", $this->token);
+            file_put_contents('token', $this->token);
+        }
         fwrite(STDOUT, '[NOTICE] Token 已更新。');
     }
 

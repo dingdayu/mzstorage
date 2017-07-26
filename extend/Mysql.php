@@ -55,7 +55,9 @@ class Mysql
                 $this->passwd
             );
         } catch (PDOException $e) {
-            throw new Exception($e->getMessage());
+//            echo "** 数据库链接错误，请检查配置！".PHP_EOL;
+//            exit();
+            throw $e;
         }
 
         $this->handle->exec('set names utf8mb4');
